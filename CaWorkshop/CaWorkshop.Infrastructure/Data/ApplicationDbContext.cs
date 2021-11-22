@@ -32,7 +32,6 @@ public class ApplicationDbContext
     {
 #if DEBUG
         optionsBuilder
-            .LogTo(Console.WriteLine)
             .EnableDetailedErrors();
 #endif
 
