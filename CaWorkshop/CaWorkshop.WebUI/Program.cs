@@ -27,6 +27,11 @@ builder.Services.AddAuthentication()
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
+builder.Services.AddOpenApiDocument(configure =>
+{
+    configure.Title = "CaWorkshop API";
+});
+
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())
@@ -63,6 +68,13 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseOpenApi();
+app.UseSwaggerUi3();
+app.UseReDoc(configure =>
+{
+    configure.Path = "/redoc";
+});
+
 app.UseAuthentication();
 app.UseIdentityServer();
 app.UseAuthorization();
@@ -72,6 +84,6 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-app.MapFallbackToFile("index.html");;
+app.MapFallbackToFile("index.html");
 
 app.Run();

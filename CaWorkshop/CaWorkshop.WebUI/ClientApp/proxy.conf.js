@@ -13,7 +13,9 @@ const PROXY_CONFIG = [
       "/connect",
       "/ApplyDatabaseMigrations",
       "/_framework",
-      "/api"
+      "/api",
+      "/swagger",
+      "/redoc"
    ],
     target: target,
     secure: false
