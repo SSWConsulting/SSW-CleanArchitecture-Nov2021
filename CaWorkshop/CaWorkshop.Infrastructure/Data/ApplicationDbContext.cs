@@ -27,4 +27,15 @@ public class ApplicationDbContext
 
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
     }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+#if DEBUG
+        optionsBuilder
+            .LogTo(Console.WriteLine)
+            .EnableDetailedErrors();
+#endif
+
+        base.OnConfiguring(optionsBuilder);
+    }
 }
