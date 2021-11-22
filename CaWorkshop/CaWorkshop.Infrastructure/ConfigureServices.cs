@@ -1,5 +1,7 @@
-﻿using CaWorkshop.Infrastructure.Identity;
+﻿using CaWorkshop.Application.Infrastructure.Messaging;
 using CaWorkshop.Infrastructure.Data;
+using CaWorkshop.Infrastructure.Identity;
+using CaWorkshop.Infrastructure.Messaging;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +29,8 @@ public static class ConfigureServices
 
         services.AddAuthentication()
             .AddIdentityServerJwt();
+
+        services.AddScoped<IMessagingService, SmtpMessagingService>();
 
         return services;
     }
