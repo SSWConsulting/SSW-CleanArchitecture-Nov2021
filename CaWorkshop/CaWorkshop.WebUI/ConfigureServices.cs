@@ -1,4 +1,6 @@
-﻿namespace CaWorkshop.WebUI
+﻿using CaWorkshop.WebUI.Filters;
+
+namespace CaWorkshop.WebUI
 {
     public static class ConfigureServices
     {
@@ -6,7 +8,8 @@
         {
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+                options.Filters.Add(new ApiExceptionFilterAttribute()));
 
             services.AddRazorPages();
 
