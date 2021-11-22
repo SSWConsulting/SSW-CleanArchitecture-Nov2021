@@ -1,6 +1,5 @@
-﻿using CaWorkshop.Application.Common.Interfaces;
-using CaWorkshop.Domain.Entities;
-using MediatR;
+﻿using CaWorkshop.Domain.Entities;
+using FluentValidation;
 
 namespace CaWorkshop.Application.TodoLists.Commands.CreateTodoList;
 
