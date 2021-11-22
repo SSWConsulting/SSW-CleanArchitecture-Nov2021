@@ -1,4 +1,5 @@
-﻿using CaWorkshop.Application.Infrastructure.Messaging;
+﻿using CaWorkshop.Application.Common.Interfaces;
+using CaWorkshop.Application.Infrastructure.Messaging;
 using CaWorkshop.Infrastructure.Data;
 using CaWorkshop.Infrastructure.Identity;
 using CaWorkshop.Infrastructure.Messaging;
@@ -18,6 +19,9 @@ public static class ConfigureServices
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(
                 configuration.GetConnectionString("DefaultConnection")));
+
+        services.AddScoped<IApplicationDbContext, ApplicationDbContext>(sp =>
+            sp.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<ApplicationDbContextInitialiser>();
 
