@@ -1,4 +1,8 @@
-﻿using CaWorkshop.WebUI.Filters;
+﻿using CaWorkshop.Application.Infrastructure.Identity;
+using CaWorkshop.WebUI.Filters;
+using CaWorkshop.WebUI.Services;
+using NSwag;
+using NSwag.Generation.Processors.Security;
 
 namespace CaWorkshop.WebUI
 {
@@ -13,9 +17,23 @@ namespace CaWorkshop.WebUI
 
             services.AddRazorPages();
 
+            services.AddHttpContextAccessor();
+
+            services.AddScoped<ICurrentUserService, CurrentUserService>();
+
             services.AddOpenApiDocument(configure =>
             {
                 configure.Title = "CaWorkshop API";
+                configure.AddSecurity("JWT", Enumerable.Empty<string>(),
+                    new OpenApiSecurityScheme
+                    {
+                        Type = OpenApiSecuritySchemeType.ApiKey,
+                        Name = "Authorization",
+                        In = OpenApiSecurityApiKeyLocation.Header,
+                        Description = "Type into the textbox: Bearer {your JWT token}."
+                    });
+                configure.OperationProcessors.Add(
+                    new AspNetCoreOperationSecurityScopeProcessor("JWT"));
             });
 
             return services;

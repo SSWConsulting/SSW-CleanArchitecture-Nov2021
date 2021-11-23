@@ -1,8 +1,10 @@
 ﻿using CaWorkshop.Application.Common.Interfaces;
+using CaWorkshop.Application.Infrastructure.Identity;
 using CaWorkshop.Application.Infrastructure.Messaging;
 using CaWorkshop.Infrastructure.Data;
 using CaWorkshop.Infrastructure.Identity;
 using CaWorkshop.Infrastructure.Messaging;
+using CaWorkshop.Infrastructure.Persistence.Interceptors;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,9 +18,12 @@ public static class ConfigureServices
         this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlServer(
-                configuration.GetConnectionString("DefaultConnection")));
+        services.AddDbContext<ApplicationDbContext>((sp, options) =>
+            options
+                .UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
+                .AddInterceptors(
+                    new AuditEntitiesSaveChangesInterceptor(
+                        sp.GetRequiredService<ICurrentUserService>())));
 
         services.AddScoped<IApplicationDbContext, ApplicationDbContext>(sp =>
             sp.GetRequiredService<ApplicationDbContext>());
