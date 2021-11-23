@@ -40,6 +40,8 @@ public static class ConfigureServices
 
         services.AddScoped<IMessagingService, SmtpMessagingService>();
 
+        services.AddScoped<IIdentityService, IdentityService>();
+
         return services;
     }
 }

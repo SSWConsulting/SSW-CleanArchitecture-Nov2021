@@ -36,6 +36,9 @@ namespace CaWorkshop.WebUI
                     new AspNetCoreOperationSecurityScopeProcessor("JWT"));
             });
 
+            services.AddLogging(configure
+                => configure.AddSeq());
+
             return services;
         }
     }
