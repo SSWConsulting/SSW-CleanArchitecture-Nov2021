@@ -22,8 +22,7 @@ public static class ConfigureServices
             options
                 .UseSqlServer(configuration.GetConnectionString("DefaultConnection"))
                 .AddInterceptors(
-                    new AuditEntitiesSaveChangesInterceptor(
-                        sp.GetRequiredService<ICurrentUserService>())));
+                    ActivatorUtilities.CreateInstance<AuditEntitiesSaveChangesInterceptor>(sp)));
 
         services.AddScoped<IApplicationDbContext, ApplicationDbContext>(sp =>
             sp.GetRequiredService<ApplicationDbContext>());
