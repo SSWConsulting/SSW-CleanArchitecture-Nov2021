@@ -1,12 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace CaWorkshop.WebUI.Controllers;
 
-[Authorize]
-[ApiController]
-[Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+public class WeatherForecastController : ApiControllerBase
 {
     private static readonly string[] Summaries = new[]
     {
@@ -21,7 +17,7 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<WeatherForecast> Get()
+    public IEnumerable<WeatherForecast> GetAbc()
     {
         return Enumerable.Range(1, 3).Select(index => new WeatherForecast
         {
