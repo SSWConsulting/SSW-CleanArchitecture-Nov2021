@@ -1,7 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>CaWorkshop.Application</RootNamespace>
+    <AssemblyName>CaWorkshop.Application</AssemblyName>
+  </PropertyGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\CaWorkshop.Domain\CaWorkshop.Domain.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,11 +24,5 @@
   <ItemGroup>
     <Folder Include="TodoItems\Commands\UpdateTodoItem\" />
   </ItemGroup>
-
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
 
 </Project>

@@ -8,7 +8,7 @@ public class UpdateTodoListCommand : IRequest
 }
 
 public class UpdateTodoListCommandHandler
-    : AsyncRequestHandler<UpdateTodoListCommand>
+    : IRequestHandler<UpdateTodoListCommand>
 {
     private readonly IApplicationDbContext _context;
 
@@ -17,7 +17,7 @@ public class UpdateTodoListCommandHandler
         _context = context;
     }
 
-    protected override async Task Handle(UpdateTodoListCommand request,
+    public async Task<Unit> Handle(UpdateTodoListCommand request,
         CancellationToken cancellationToken)
     {
         var entity = await _context.TodoLists
@@ -28,5 +28,7 @@ public class UpdateTodoListCommandHandler
         entity!.Title = request.Title;
 
         await _context.SaveChangesAsync(cancellationToken);
+
+        return Unit.Value;
     }
 }
